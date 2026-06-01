@@ -1,0 +1,25 @@
+# Databases
+careunify.db
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Local uploads and logs storage
+storage/
+.system_generated/
+*.log
+
+# IDEs
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

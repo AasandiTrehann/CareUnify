@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareUnify - AI Clinical Data Integration Platform</title>
+    <meta name="description" content="AI-powered clinical patient record deduplication, FHIR R4 standard merge mapping, and semantic RAG intelligence workspace.">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="landing-body" style="background: radial-gradient(circle at top right, #0d1527 0%, #030712 100%); display: block; overflow-y: auto;">
+
+    <!-- Landing Navigation Header -->
+    <header class="landing-header" style="position: sticky; top: 0; width: 100%; background: rgba(3, 7, 18, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); z-index: 500; padding: 20px 40px; display: flex; align-items: center; justify-content: space-between;">
+        <div class="logo-container" style="margin-bottom: 0;">
+            <div class="logo-icon">C</div>
+            <h1 class="logo-text">CareUnify</h1>
+        </div>
+        
+        <nav style="display: flex; gap: 32px; align-items: center;">
+            <a href="#features" style="color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: var(--transition-smooth);">Features</a>
+            <a href="#interop" style="color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: var(--transition-smooth);">Interoperability</a>
+            <a href="#security" style="color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: var(--transition-smooth);">Security & Audits</a>
+            <a href="portal.html" class="btn-ingest" style="text-decoration: none; padding: 10px 20px; font-size: 13px;">Launch Portal</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section" style="padding: 100px 40px; text-align: center; max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 24px;">
+        <div style="background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.2); color: #c084fc; padding: 6px 16px; border-radius: 30px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; display: inline-block;">
+            AI-Powered Patient Record Consolidation
+        </div>
+        <h2 style="font-size: 54px; font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; background: linear-gradient(to right, #ffffff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; max-width: 900px;">
+            Unify Scattered Health Records into One Single Source of Truth
+        </h2>
+        <p style="font-size: 18px; color: var(--text-muted); line-height: 1.6; max-width: 760px;">
+            CareUnify ingests multi-modal data from EHRs, lab CSVs, scanned notes, and audio files—resolving duplicates using phonetic and semantic algorithms to synthesize a unified FHIR R4 Golden Record.
+        </p>
+        
+        <div style="display: flex; gap: 16px; margin-top: 16px;">
+            <a href="portal.html" class="btn-ingest" style="text-decoration: none; padding: 16px 32px; font-size: 15px; font-weight: 600;">
+                <span class="material-icons">rocket_launch</span>
+                <span>Enter Workspace Portal</span>
+            </a>
+            <a href="#features" class="btn" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); color: white; display: flex; align-items: center; gap: 8px; padding: 16px 32px; border-radius: 10px; font-size: 15px; font-weight: 600; text-decoration: none; transition: var(--transition-smooth);">
+                <span>Explore Features</span>
+                <span class="material-icons" style="font-size: 16px;">arrow_downward</span>
+            </a>
+        </div>
+
+        <!-- Visual Product Teaser Card -->
+        <div class="glass-card" style="width: 100%; max-width: 960px; margin-top: 60px; border-radius: 20px; overflow: hidden; padding: 0; box-shadow: 0 30px 60px -15px rgba(0,0,0,0.8);">
+            <!-- Mock Workspace UI illustration -->
+            <div style="background: #0f172a; border-bottom: 1px solid var(--border-color); padding: 12px 24px; display: flex; align-items: center; gap: 8px;">
+                <span style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444;"></span>
+                <span style="width: 10px; height: 10px; border-radius: 50%; background: #f59e0b;"></span>
+                <span style="width: 10px; height: 10px; border-radius: 50%; background: #10b981;"></span>
+                <div style="background: rgba(255,255,255,0.05); padding: 4px 20px; border-radius: 6px; font-size: 11px; color: var(--text-dark); font-family: monospace; margin-left: 20px;">careunify.internal/clinical-workspace</div>
+            </div>
+            
+            <div style="background: #090d16; padding: 32px; display: flex; gap: 20px; text-align: left;">
+                <!-- Mock Sidebar -->
+                <div style="width: 160px; display: flex; flex-direction: column; gap: 12px; border-right: 1px solid rgba(255,255,255,0.05); padding-right: 16px;">
+                    <div style="height: 12px; width: 80px; background: rgba(255,255,255,0.1); border-radius: 4px;"></div>
+                    <div style="height: 12px; width: 100px; background: rgba(168,85,247,0.2); border-radius: 4px;"></div>
+                    <div style="height: 12px; width: 60px; background: rgba(255,255,255,0.05); border-radius: 4px;"></div>
+                    <div style="height: 12px; width: 70px; background: rgba(255,255,255,0.05); border-radius: 4px;"></div>
+                </div>
+                <!-- Mock Dashboard body -->
+                <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 20px;">
+                    <!-- Demo Demographics banner -->
+                    <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 16px; border-radius: 12px; display: flex; gap: 16px; align-items: center;">
+                        <div style="width: 36px; height: 36px; border-radius: 8px; background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));"></div>
+                        <div style="display: flex; flex-direction: column; gap: 4px;">
+                            <div style="height: 14px; width: 120px; background: white; border-radius: 4px;"></div>
+                            <div style="height: 8px; width: 180px; background: var(--text-dark); border-radius: 3px;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px;">
+                        <!-- Mock timeline -->
+                        <div style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); padding: 16px; border-radius: 12px; display: flex; flex-direction: column; gap: 12px;">
+                            <div style="height: 12px; width: 100px; background: rgba(255,255,255,0.1); border-radius: 4px;"></div>
+                            <div style="display: flex; gap: 10px; align-items: center; border-left: 2px solid rgba(255,255,255,0.1); padding-left: 12px; margin-left: 6px;">
+                                <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--color-secondary); margin-left: -17px;"></div>
+                                <div style="display: flex; flex-direction: column; gap: 4px; flex-grow: 1;">
+                                    <div style="height: 10px; width: 140px; background: rgba(255,255,255,0.08); border-radius: 3px;"></div>
+                                    <div style="height: 6px; width: 220px; background: var(--text-dark); border-radius: 2px;"></div>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 10px; align-items: center; border-left: 2px solid rgba(255,255,255,0.1); padding-left: 12px; margin-left: 6px;">
+                                <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--color-primary); margin-left: -17px;"></div>
+                                <div style="display: flex; flex-direction: column; gap: 4px; flex-grow: 1;">
+                                    <div style="height: 10px; width: 160px; background: rgba(255,255,255,0.08); border-radius: 3px;"></div>
+                                    <div style="height: 6px; width: 180px; background: var(--text-dark); border-radius: 2px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Mock Chat -->
+                        <div style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); padding: 16px; border-radius: 12px; display: flex; flex-direction: column; justify-content: space-between; height: 140px;">
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <div style="height: 12px; width: 80px; background: rgba(255,255,255,0.1); border-radius: 4px;"></div>
+                                <div style="background: rgba(168,85,247,0.1); padding: 8px; border-radius: 6px; width: 85%; align-self: flex-start; height: 40px;">
+                                    <div style="height: 6px; width: 100%; background: rgba(255,255,255,0.1); border-radius: 2px; margin-bottom: 4px;"></div>
+                                    <div style="height: 6px; width: 60%; background: rgba(255,255,255,0.1); border-radius: 2px;"></div>
+                                </div>
+                            </div>
+                            <div style="background: rgba(0,0,0,0.2); height: 28px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats & Fragmentation Problem Section -->
+    <section class="landing-section" style="padding: 80px 40px; background: rgba(255,255,255,0.01); border-top: 1px solid rgba(255,255,255,0.03);">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center;">
+            <div>
+                <h3 style="font-size: 32px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.5px;">The Fragmented Patient Data Crisis</h3>
+                <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">
+                    On average, a single patient has about **4.7 separate records** spread across disparate EHR platforms, lab portals, scanned report attachments, and physician dictation notes. This fragmentation costs clinics and leads to serious hazards:
+                </p>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; color: var(--text-muted); font-size: 14px;">
+                    <li style="display: flex; align-items: center; gap: 8px;">
+                        <span class="material-icons" style="color: var(--color-error); font-size: 18px;">warning</span>
+                        Clinical medication errors and dosing mismatch risks.
+                    </li>
+                    <li style="display: flex; align-items: center; gap: 8px;">
+                        <span class="material-icons" style="color: var(--color-error); font-size: 18px;">warning</span>
+                        Misdiagnoses due to incomplete laboratory history.
+                    </li>
+                    <li style="display: flex; align-items: center; gap: 8px;">
+                        <span class="material-icons" style="color: var(--color-error); font-size: 18px;">warning</span>
+                        Excessive administrative overhead and record retrieval delays.
+                    </li>
+                </ul>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="glass-card" style="text-align: center; padding: 32px;">
+                    <div style="font-size: 48px; font-weight: 800; color: var(--color-primary); margin-bottom: 4px;">4.7</div>
+                    <div style="font-weight: 600; font-size: 14px;">Split Records</div>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Average quantity per patient across systems</div>
+                </div>
+                <div class="glass-card" style="text-align: center; padding: 32px;">
+                    <div style="font-size: 48px; font-weight: 800; color: var(--color-secondary); margin-bottom: 4px;">18%</div>
+                    <div style="font-weight: 600; font-size: 14px;">Duplicate Rate</div>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Mismatched identities in hospital databases</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Features Grid -->
+    <section id="features" class="landing-section" style="padding: 80px 40px; max-width: 1200px; margin: 0 auto;">
+        <div style="text-align: center; margin-bottom: 60px;">
+            <h3 style="font-size: 32px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px;">Platform Core Integration Pillars</h3>
+            <p style="color: var(--text-muted); font-size: 16px;">AI-powered microservices working in harmony to compile the Golden Record.</p>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+            <!-- Ingest -->
+            <div class="glass-card">
+                <span class="material-icons" style="font-size: 36px; color: var(--color-primary); margin-bottom: 16px;">cloud_upload</span>
+                <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Multi-Modal Ingest</h4>
+                <p style="color: var(--text-muted); font-size: 13px; line-height: 1.6;">
+                    Ingest data from REST APIs, HL7 feeds, lab CSV tables, scanned clinical PDFs (Tesseract OCR), and audio voice notes (Whisper dictations).
+                </p>
+            </div>
+            
+            <!-- Patient Matching -->
+            <div class="glass-card">
+                <span class="material-icons" style="font-size: 36px; color: var(--color-secondary); margin-bottom: 16px;">fingerprint</span>
+                <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Entity Resolution</h4>
+                <p style="color: var(--text-muted); font-size: 13px; line-height: 1.6;">
+                    Phonetic blocking keys (Soundex/NYSIIS) combined with weighted string similarity and ML classifiers to score records.
+                </p>
+            </div>
+            
+            <!-- RAG Query -->
+            <div class="glass-card">
+                <span class="material-icons" style="font-size: 36px; color: var(--color-success); margin-bottom: 16px;">psychology</span>
+                <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">RAG Intelligence</h4>
+                <p style="color: var(--text-muted); font-size: 13px; line-height: 1.6;">
+                    Conversational natural language search over patient histories powered by local Llama 3 models, citing references from source documents.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interoperability Section -->
+    <section id="interop" class="landing-section" style="padding: 80px 40px; background: rgba(255,255,255,0.01); border-top: 1px solid rgba(255,255,255,0.03);">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: center;">
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+                <div style="background: rgba(13, 148, 136, 0.1); border: 1px solid rgba(13, 148, 136, 0.2); color: #2dd4bf; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; display: inline-block; align-self: flex-start;">
+                    Healthcare Interoperability Standards
+                </div>
+                <h3 style="font-size: 32px; font-weight: 700; letter-spacing: -0.5px;">Standardized HL7 Socket Streams & FHIR R4 Objects</h3>
+                <p style="color: var(--text-muted); line-height: 1.6;">
+                    CareUnify is built to natively communicate with traditional and modern medical systems:
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div style="display: flex; gap: 12px;">
+                        <span class="material-icons" style="color: var(--color-secondary);">settings_ethernet</span>
+                        <div>
+                            <h5 style="font-size: 14px; font-weight: 600;">HL7 TCP MLLP socket listener</h5>
+                            <p style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Receives live ADT (demographics) and ORU (observation results) packets on port 2575.</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 12px;">
+                        <span class="material-icons" style="color: var(--color-primary);">storage</span>
+                        <div>
+                            <h5 style="font-size: 14px; font-weight: 600;">FHIR R4 Schema Standard</h5>
+                            <p style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Converts metrics into standard Patient, Observation, Encounter, MedicationRequest, and DiagnosticReport FHIR R4 JSON objects.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="glass-card" style="background: #060913; border: 1px solid rgba(255,255,255,0.05); font-family: monospace; font-size: 11px; padding: 24px; color: #a5f3fc; line-height: 1.5; border-radius: 12px; overflow-x: auto;">
+                <div>// FHIR R4 Patient Standardization</div>
+                <div style="color: #64748b;">{</div>
+                <div>  <span style="color: var(--color-primary);">"resourceType"</span>: <span style="color: var(--color-success);">"Patient"</span>,</div>
+                <div>  <span style="color: var(--color-primary);">"id"</span>: <span style="color: var(--color-success);">"fa981040-2cdf-4adf"</span>,</div>
+                <div>  <span style="color: var(--color-primary);">"name"</span>: [{</div>
+                <div>    <span style="color: var(--color-primary);">"use"</span>: <span style="color: var(--color-success);">"official"</span>,</div>
+                <div>    <span style="color: var(--color-primary);">"family"</span>: <span style="color: var(--color-success);">"Doe"</span>,</div>
+                <div>    <span style="color: var(--color-primary);">"given"</span>: [<span style="color: var(--color-success);">"John"</span>]</div>
+                <div>  }],</div>
+                <div>  <span style="color: var(--color-primary);">"birthDate"</span>: <span style="color: var(--color-success);">"1980-05-15"</span>,</div>
+                <div>  <span style="color: var(--color-primary);">"gender"</span>: <span style="color: var(--color-success);">"male"</span></div>
+                <div style="color: #64748b;">}</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HIPAA & Security Section -->
+    <section id="security" class="landing-section" style="padding: 80px 40px; max-width: 1200px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 40px;">
+        <div style="max-width: 700px;">
+            <h3 style="font-size: 32px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.5px;">HIPAA & GDPR Security Controls</h3>
+            <p style="color: var(--text-muted); font-size: 15px;">Built from the ground up for strict data protection compliance in hospital environments.</p>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 100%;">
+            <div class="glass-card" style="padding: 24px;">
+                <span class="material-icons" style="font-size: 28px; color: var(--color-warning); margin-bottom: 12px;">visibility_off</span>
+                <h5 style="font-size: 14px; font-weight: 600; margin-bottom: 6px;">PHI De-identification</h5>
+                <p style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">Automatically scrubs names, SSNs, and phone numbers from records before indexing for RAG.</p>
+            </div>
+            
+            <div class="glass-card" style="padding: 24px;">
+                <span class="material-icons" style="font-size: 28px; color: var(--color-success); margin-bottom: 12px;">history</span>
+                <h5 style="font-size: 14px; font-weight: 600; margin-bottom: 6px;">Immutable Audits</h5>
+                <p style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">Maintains persistent transaction logs tracking user accesses and patient modifications.</p>
+            </div>
+            
+            <div class="glass-card" style="padding: 24px;">
+                <span class="material-icons" style="font-size: 28px; color: var(--color-primary); margin-bottom: 12px;">policy</span>
+                <h5 style="font-size: 14px; font-weight: 600; margin-bottom: 6px;">GDPR Right-to-Erasure</h5>
+                <p style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">Provides full compliance mechanisms to completely purge records and delete RAG indices.</p>
+            </div>
+            
+            <div class="glass-card" style="padding: 24px;">
+                <span class="material-icons" style="font-size: 28px; color: var(--color-secondary); margin-bottom: 12px;">admin_panel_settings</span>
+                <h5 style="font-size: 14px; font-weight: 600; margin-bottom: 6px;">Role-Based Security</h5>
+                <p style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">Separated, restricted interface layouts for Doctors, Lab Assistants, and Patients.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Landing Footer CTA -->
+    <footer style="padding: 60px 40px 100px 40px; text-align: center; border-top: 1px solid rgba(255,255,255,0.03); background: rgba(0,0,0,0.3); display: flex; flex-direction: column; align-items: center; gap: 16px;">
+        <h4 style="font-size: 22px; font-weight: 600; color: white;">Ready to unify your clinical records?</h4>
+        <p style="font-size: 13px; color: var(--text-muted); max-width: 480px; line-height: 1.5; margin-bottom: 8px;">
+            Log in using Doctor, Lab, or Patient roles, ingest mock datasets, and query histories with clinical AI helpers.
+        </p>
+        <a href="portal.html" class="btn-ingest" style="text-decoration: none; padding: 14px 28px; font-size: 14px; font-weight: 600;">
+            <span>Launch Clinical Workspace</span>
+            <span class="material-icons">arrow_forward</span>
+        </a>
+        <div style="font-size: 11px; color: var(--text-dark); margin-top: 40px;">
+            &copy; 2026 CareUnify Platform. Interoperability & security certified.
+        </div>
+    </footer>
+
+</body>
+</html>

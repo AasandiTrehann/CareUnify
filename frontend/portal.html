@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareUnify Portal - AI Clinical Workspace</title>
+    <meta name="description" content="AI-powered clinical patient record deduplication, FHIR R4 standard merge mapping, and semantic RAG intelligence workspace.">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Chart.js for clinical data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="app-sidebar" style="display: none;">
+        <div class="logo-container">
+            <div class="logo-icon">C</div>
+            <h1 class="logo-text">CareUnify</h1>
+        </div>
+
+        <!-- User Profile Session Badge -->
+        <div class="user-profile-badge" id="user-profile">
+            <div class="avatar-small" id="user-avatar-text">D</div>
+            <div class="profile-info">
+                <div class="profile-role" id="profile-role-text">Doctor</div>
+                <div class="profile-name" id="profile-name-text">Dr. Smith</div>
+            </div>
+            <button class="btn-logout" onclick="logout()" title="Logout">
+                <span class="material-icons">logout</span>
+            </button>
+        </div>
+
+        <ul class="nav-links">
+            <li class="nav-item active" id="nav-dashboard">
+                <a href="#" onclick="showSection('dashboard-section')">
+                    <span class="material-icons nav-icon">dashboard</span>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item" id="nav-queue">
+                <a href="#" onclick="showSection('queue-section')">
+                    <span class="material-icons nav-icon">join_right</span>
+                    <span>Match Queue</span>
+                    <span class="badge" id="queue-count-badge" style="display: none;">0</span>
+                </a>
+            </li>
+            <li class="nav-item" id="nav-audit">
+                <a href="#" onclick="showSection('audit-section')">
+                    <span class="material-icons nav-icon">security</span>
+                    <span>Audit Trail</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <button class="btn-ingest" id="btn-sidebar-ingest" onclick="openIngestModal()">
+                <span class="material-icons">cloud_upload</span>
+                <span>Ingest Document</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content Workspace -->
+    <main class="main-content" id="app-main-content" style="display: none; margin-left: 0; width: 100%;">
+
+        <!-- DASHBOARD VIEW -->
+        <section id="dashboard-section" class="view-section active">
+            <div>
+                <h2 class="page-title">Patient Directory</h2>
+                <p class="page-desc">Query and manage unified clinical patient profiles ("Golden Records").</p>
+            </div>
+
+            <div class="search-container">
+                <span class="material-icons search-icon-fixed">search</span>
+                <input type="text" id="patient-search" class="search-input" placeholder="Search patients by name, DOB, phone, SSN..." oninput="searchPatients()">
+            </div>
+
+            <div class="patient-grid" id="patients-list">
+                <!-- Loaded dynamically -->
+            </div>
+        </section>
+
+
+        <!-- PATIENT DETAIL WORKSPACE VIEW -->
+        <section id="patient-detail-section" class="view-section">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <button class="btn-send" id="btn-back-to-dir" style="background: rgba(255,255,255,0.05); width: 36px; height: 36px;" onclick="showSection('dashboard-section')">
+                    <span class="material-icons">arrow_back</span>
+                </button>
+                <div>
+                    <h2 class="page-title">Clinical Workspace</h2>
+                    <p class="page-desc">Unified Golden Record patient profile & semantic RAG queries.</p>
+                </div>
+            </div>
+
+            <div class="workspace-layout">
+                <!-- Demographic Header -->
+                <div class="glass-card banner-demographics">
+                    <div class="patient-large-avatar" id="det-avatar">JD</div>
+                    <div style="flex-grow: 1;">
+                        <h3 class="patient-name" id="det-name">John Doe</h3>
+                        <div class="patient-details-grid">
+                            <div class="demographic-item">
+                                <div class="demographic-label">DOB</div>
+                                <div class="demographic-value" id="det-dob">-</div>
+                            </div>
+                            <div class="demographic-item">
+                                <div class="demographic-label">Gender</div>
+                                <div class="demographic-value" id="det-gender">-</div>
+                            </div>
+                            <div class="demographic-item">
+                                <div class="demographic-label">SSN (Verified)</div>
+                                <div class="demographic-value" id="det-ssn">-</div>
+                            </div>
+                            <div class="demographic-item">
+                                <div class="demographic-label">Contact</div>
+                                <div class="demographic-value" id="det-contact">-</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Left Column: Unified Patient FHIR Timeline / Charts -->
+                <div class="glass-card timeline-card">
+                    <div class="chat-header" style="border-bottom: 1px solid var(--border-color); padding-bottom: 0; margin-bottom: 16px; justify-content: flex-start; gap: 16px;">
+                        <button class="tab-btn active" id="tab-timeline" onclick="switchWorkspaceTab('timeline')">
+                            <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">clinical_notes</span>
+                            FHIR Timeline
+                        </button>
+                        <button class="tab-btn" id="tab-analytics" onclick="switchWorkspaceTab('analytics')">
+                            <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">insights</span>
+                            Clinical Stats
+                        </button>
+                    </div>
+                    
+                    <div class="timeline-scroll" id="timeline-list">
+                        <!-- Timeline entries loaded dynamically -->
+                    </div>
+
+                    <!-- Analytics Panels containing Chart.js graphs -->
+                    <div class="analytics-scroll" id="analytics-container" style="display: none; overflow-y: auto; flex-grow: 1; padding: 12px; gap: 24px; flex-direction: column;">
+                        <div class="chart-wrapper" style="position: relative; height: 180px; width: 100%;">
+                            <h4 style="font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px;">Blood Pressure Trend (mmHg)</h4>
+                            <canvas id="bp-chart"></canvas>
+                        </div>
+                        <div class="chart-wrapper" style="position: relative; height: 180px; width: 100%;">
+                            <h4 style="font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px;">Cholesterol Panel (mg/dL)</h4>
+                            <canvas id="chol-chart"></canvas>
+                        </div>
+                        <div class="chart-wrapper" style="position: relative; height: 180px; width: 100%;">
+                            <h4 style="font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px;">HbA1c Blood Glucose Level (%)</h4>
+                            <canvas id="a1c-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: RAG Conversational AI Assistant -->
+                <div class="glass-card chat-container">
+                    <div class="chat-header">
+                        <span class="material-icons" style="color: var(--color-primary);">psychology</span>
+                        <span>Clinical AI Intelligence Agent (RAG)</span>
+                    </div>
+                    
+                    <div class="chat-history" id="chat-box">
+                        <div class="chat-bubble assistant">
+                            Hello! I have loaded the unified patient clinical record. Ask me any natural language clinical question, such as:
+                            <br><em>"What medications has this patient been on?"</em> or 
+                            <br><em>"Summarize their cardiovascular checkups."</em>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input-wrapper">
+                        <input type="text" id="chat-input" class="chat-text-input" placeholder="Query patient clinical records..." onkeydown="handleChatKey(event)">
+                        <button class="btn-send" id="btn-chat-send" onclick="sendChatQuery()">
+                            <span class="material-icons">send</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bottom Panel: Data lineage / provenance -->
+                <div class="glass-card provenance-card">
+                    <div class="chat-header" style="border-bottom: none; margin-bottom: 0;">
+                        <span class="material-icons" style="color: var(--color-warning);">account_tree</span>
+                        <span>Data Lineage & Source Provenance (Record Mapping)</span>
+                    </div>
+                    <p class="page-desc" style="margin-left: 28px;">Trace the matching source entries feeding into the consolidated Golden Record.</p>
+                    <div class="lineage-grid" id="provenance-list">
+                        <!-- Lineage blocks loaded dynamically -->
+                    </div>
+                    
+                    <button class="btn-gdpr" id="btn-gdpr-purge" onclick="confirmGdprErasure()">
+                        <span class="material-icons" style="font-size: 14px; vertical-align: middle; margin-right: 4px;">delete_forever</span>
+                        GDPR Right-to-Erasure (Purge Records)
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- HUMAN-IN-THE-LOOP MATCH QUEUE VIEW -->
+        <section id="queue-section" class="view-section">
+            <div>
+                <h2 class="page-title">Entity Resolution Center</h2>
+                <p class="page-desc">Review and resolve ambiguous clinical duplicate record alerts ($0.60 \le P < 0.85$).</p>
+            </div>
+
+            <div class="match-queue-list" id="queue-container">
+                <!-- Match queue items loaded dynamically -->
+            </div>
+        </section>
+
+
+        <!-- SECURITY AUDIT VIEW -->
+        <section id="audit-section" class="view-section">
+            <div>
+                <h2 class="page-title">HIPAA Auditing Logs</h2>
+                <p class="page-desc">Immutable transaction record history tracking user activity and medical access audits.</p>
+            </div>
+
+            <div class="glass-card audit-table-wrapper">
+                <table class="audit-table">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Clinician User</th>
+                            <th>Action Type</th>
+                            <th>Patient ID</th>
+                            <th>Description Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody id="audit-log-rows">
+                        <!-- Dynamic rows -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- INGEST MODAL -->
+    <div class="modal-overlay" id="ingest-modal">
+        <div class="glass-card modal-card">
+            <div class="modal-header">
+                <h3 class="patient-name">Ingest Clinical Document</h3>
+                <span class="material-icons modal-close" onclick="closeIngestModal()">close</span>
+            </div>
+            
+            <form id="ingest-form" onsubmit="submitIngestion(event)">
+                <div class="form-group">
+                    <label class="form-label" for="ingest-type">Source Ingestion Channel</label>
+                    <select id="ingest-type" class="form-input" onchange="toggleIngestFields()">
+                        <option value="patient">EHR Demographics Entry (JSON)</option>
+                        <option value="csv">Lab Panel Dataset (CSV)</option>
+                        <option value="ocr">Scanned Medical Note Scan (PDF/Image)</option>
+                        <option value="voice">Audio Voice Dictation Ingest (.WAV)</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="json-input-wrapper">
+                    <label class="form-label" for="json-payload">JSON Data Payload</label>
+                    <textarea id="json-payload" class="form-input" rows="8" placeholder='{ "firstName": "John", "lastName": "Doe", "birthDate": "1980-05-15" }'></textarea>
+                </div>
+
+                <div class="form-group" id="file-input-wrapper" style="display: none;">
+                    <label class="form-label" for="file-upload">Select Clinical File</label>
+                    <input type="file" id="file-upload" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="source-system">Originating Source System</label>
+                    <input type="text" id="source-system" class="form-input" placeholder="e.g. EHR_CLINIC_A, LAB_PORTAL_B" value="MANUAL_INGEST">
+                </div>
+
+                <button type="submit" class="btn-submit" id="btn-ingest-submit">Upload & Process</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ROLE-BASED LOGIN OVERLAY SCREEN -->
+    <div class="modal-overlay active" id="login-overlay" style="display: flex;">
+        <div class="glass-card login-card" style="width: 420px; padding: 32px; text-align: center; box-shadow: var(--shadow-premium);">
+            <div class="logo-container" style="justify-content: center; margin-bottom: 16px;">
+                <div class="logo-icon" style="width: 40px; height: 40px; font-size: 22px;">C</div>
+                <h1 class="logo-text" style="font-size: 26px;">CareUnify</h1>
+            </div>
+            
+            <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.3px;">Portal Authentication</h3>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.4;">Select a clinical security profile to log in.</p>
+            
+            <div class="role-list" style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
+                <button class="btn-ingest" style="background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.25); color: #c084fc; justify-content: flex-start; text-align: left; padding: 16px; border-radius: 12px;" onclick="handleLogin('doctor')">
+                    <span class="material-icons" style="font-size: 24px; margin-right: 12px; color: var(--color-primary);">psychology</span>
+                    <div style="flex-grow: 1;">
+                        <div style="font-weight: 600; font-size: 14px; color: white;">Doctor (Clinician)</div>
+                        <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Full patient timeline, RAG, Match reviews, & Audit logs</div>
+                    </div>
+                </button>
+
+                <button class="btn-ingest" style="background: rgba(13, 148, 136, 0.1); border: 1px solid rgba(13, 148, 136, 0.25); color: #2dd4bf; justify-content: flex-start; text-align: left; padding: 16px; border-radius: 12px;" onclick="handleLogin('lab')">
+                    <span class="material-icons" style="font-size: 24px; margin-right: 12px; color: var(--color-secondary);">biotech</span>
+                    <div style="flex-grow: 1;">
+                        <div style="font-weight: 600; font-size: 14px; color: white;">Lab Assistant</div>
+                        <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Upload lab panels, search directory, & check-ins</div>
+                    </div>
+                </button>
+
+                <button class="btn-ingest" style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.25); color: #fbbf24; justify-content: flex-start; text-align: left; padding: 16px; border-radius: 12px;" onclick="handleLogin('patient')">
+                    <span class="material-icons" style="font-size: 24px; margin-right: 12px; color: var(--color-warning);">person</span>
+                    <div style="flex-grow: 1;">
+                        <div style="font-weight: 600; font-size: 14px; color: white;">Patient Portal</div>
+                        <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Access personal unified Golden Record & health RAG</div>
+                    </div>
+                </button>
+            </div>
+            
+            <div style="margin-top: 24px; font-size: 11px; color: var(--text-dark);">
+                HIPAA & GDPR Compliance Enforcement Active
+            </div>
+        </div>
+    </div>
+
+    <!-- Web app logic JS -->
+    <script src="app.js"></script>
+</body>
+</html>
